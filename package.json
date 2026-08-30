@@ -1,5 +1,5 @@
 {
-  "name": "dsh-token-preset",
+  "name": "dsh-token-skills",
   "version": "0.1.0",
   "description": "Cut token cost in 4 layers without cutting model intelligence: handoff, rtk, headroom, caveman skills for DeepSeek Harness.",
   "type": "module",

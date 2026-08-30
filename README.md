@@ -1,4 +1,4 @@
-# dsh-token-preset
+# dsh-token-skills
 
 **Cut token cost in 4 layers — without cutting model intelligence.**
 
@@ -53,13 +53,13 @@ after:  HANDOFF note      → pruned diff      → compacted headroom  → terse
 ## Install
 
 ```sh
-dsh plugin --profile web add dsh-token-preset
+dsh plugin --profile web add dsh-token-skills
 ```
 
 Or clone it and drop the skills into `~/.dsh/skills/`:
 
 ```sh
-git clone https://github.com/WODE25500/dsh-token-preset
+git clone https://github.com/WODE25500/dsh-token-skills
 ```
 
 Each skill is also invocable directly — `handoff`, `rtk`, `headroom`, `caveman`.

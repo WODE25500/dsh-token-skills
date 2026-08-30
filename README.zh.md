@@ -1,4 +1,4 @@
-# dsh-token-preset
+# dsh-token-skills
 
 **四层省 Token,不牺牲模型智能。**
 
@@ -53,13 +53,13 @@ after:  HANDOFF 笔记   → 剪过的 diff   → headroom 压缩  → 极简回
 ## 安装
 
 ```sh
-dsh plugin --profile web add dsh-token-preset
+dsh plugin --profile web add dsh-token-skills
 ```
 
 或 clone 后把四个 skill 目录放进 `~/.dsh/skills/`:
 
 ```sh
-git clone https://github.com/WODE25500/dsh-token-preset
+git clone https://github.com/WODE25500/dsh-token-skills
 ```
 
 每个 skill 也可单独调用:`handoff`、`rtk`、`headroom`、`caveman`。
