@@ -1,12 +1,23 @@
 // Validate every bundled skill's frontmatter (dependency-free).
 // Usage: node scripts/check-skills.mjs   (exit 1 on any failure)
+//
+// Mirrors the checks dsh's skill loader applies, so a skill that passes here
+// also loads there. Notably: dsh parses frontmatter with a strict YAML parser,
+// so an unquoted plain scalar containing ": " (colon-space) is treated as a
+// nested mapping and the whole SKILL.md is silently dropped. We flag that here.
 import { readdir, readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const skillsRoot = join(dirname(fileURLToPath(import.meta.url)), '..', 'skills')
-
 const REQUIRED = ['name:', 'description:', 'whenToUse:', 'metadata:']
+
+// A plain scalar value (not opening with a quote) must not contain ": ".
+function plainScalarHasColonSpace(value) {
+  const v = value.trim()
+  if (v.startsWith('"') || v.startsWith("'")) return false
+  return v.includes(': ')
+}
 
 const dirs = (await readdir(skillsRoot, { withFileTypes: true }))
   .filter((d) => d.isDirectory())
@@ -29,6 +40,12 @@ for (const dir of dirs) {
       const name = /^name:\s*(.+)$/m.exec(fm[1])?.[1]?.trim()
       if (!name) problems.push('frontmatter has an empty name')
       else if (!name.startsWith('dsh-token-')) problems.push(`name "${name}" should be namespaced dsh-token-*`)
+      // Strict-YAML guard: a plain scalar must not carry a nested ": " mapping.
+      for (const key of ['description:', 'whenToUse:']) {
+        const line = fm[1].split('\n').find((l) => l.startsWith(key)) ?? ''
+        const value = line.slice(key.length)
+        if (value && plainScalarHasColonSpace(value)) problems.push(`"${key.slice(0, -1)}" has an unquoted ": " -> quote the whole value (dsh's YAML parser would drop this skill)`)
+      }
     }
   } catch (err) {
     problems.push(`unreadable: ${err.message}`)

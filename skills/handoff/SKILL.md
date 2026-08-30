@@ -1,7 +1,7 @@
 ---
 name: dsh-token-handoff
-description: Session context handoff — stop re-reading and re-deriving context every session. Write a compact HANDOFF note (goal, decisions, next step, open questions, gotchas) at the end of a working session so the next session starts warm instead of cold. Token-saving layer ①: never re-paste history you already have.
-whenToUse: When ending a long working session; when you are about to switch tasks/agents/branches and will return later; when a project spans multiple sessions and you keep re-explaining the state; when onboarding a fresh agent to an ongoing effort.
+description: "Session context handoff — stop re-reading and re-deriving context every session. Write a compact HANDOFF note (goal, decisions, next step, open questions, gotchas) at the end of a working session so the next session starts warm instead of cold. Token-saving layer ①: never re-paste history you already have."
+whenToUse: "When ending a long working session; when you are about to switch tasks/agents/branches and will return later; when a project spans multiple sessions and you keep re-explaining the state; when onboarding a fresh agent to an ongoing effort."
 metadata:
   version: "1.0.0"
   author: "WODE25500"
