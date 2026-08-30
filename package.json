@@ -1,17 +1,22 @@
 {
   "name": "dsh-token-preset",
   "version": "0.1.0",
-  "description": "Four-layer token-saving preset for DeepSeek Harness: handoff, rtk, headroom, caveman - each a bundled skill that cuts token cost without cutting model intelligence.",
+  "description": "Cut token cost in 4 layers without cutting model intelligence: handoff, rtk, headroom, caveman skills for DeepSeek Harness.",
   "type": "module",
   "main": "src/index.js",
   "files": [
     "src",
     "skills",
+    "scripts",
     "cordis.patch.yml",
     "README.md",
     "README.zh.md",
     "LICENSE"
   ],
+  "scripts": {
+    "check:skills": "node scripts/check-skills.mjs",
+    "test": "node scripts/check-skills.mjs"
+  },
   "keywords": [
     "dsh",
     "deepseek-harness",

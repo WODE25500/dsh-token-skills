@@ -1,41 +1,79 @@
 # dsh-token-preset
 
-DeepSeek Harness (dsh) **省 Token 预设** —— 四层互补手段,在**不牺牲模型智能**的前提下降低 token 开销。每一层是一个轻量 dsh skill(`skills/<layer>/SKILL.md`),只编码*策略与判断*;已有真实引擎的地方(如 dsh-headroom)由 skill 引用而不重造。
+**四层省 Token,不牺牲模型智能。**
 
+一个 DeepSeek Harness 预设,内含四个互补的省 Token skill。每一层专治 token 管道的不同阶段,因此**可以叠加**:
+
+> **交接**上下文 → **剪**输入 → **压**上下文 → **砍**输出
+
+别为已经拥有的 token 再付一次钱。
+
+```mermaid
+flowchart LR
+  A[Tokenizer] --> B[① Handoff<br>会话]
+  B --> C[② RTK<br>输入]
+  C --> D[③ Headroom<br>上下文]
+  D --> E[④ Caveman<br>输出]
+  E --> F[<b>更少 token</b>]
 ```
-Tokenizer → ① Handoff  ② RTK  ③ Headroom  ④ Caveman
-```
-按会话生命周期依次生效:**交接上下文**以免重读历史,**剪冗余输入**再送进模型,**压缩留存上下文**,最后**压紧输出**。
+
+> **为什么:每个 token 都是钱。** 一个长会话会把已经付过钱的上下文再发一遍——旧对话、padding 满屏的日志、啰嗦的回复。这四个 skill 在每一层堵住这个泄漏。
+
+---
 
 ## 四层
 
-| # | Skill | 层 | 省什么 | 支撑工具 / 引擎 |
-|---|---|---|---|---|
-| ① | `handoff` | 会话 | 免去跨会话重读/重建上下文 | [context-auto-handoff](https://www.npmjs.com/package/context-auto-handoff)、[agenthandoff](https://www.npmjs.com/package/@jatin_iyer09/agenthandoff) |
-| ② | `rtk` | 输入 | 进入模型前剪掉重复/冗余 token | [RTK (Rust Token Killer)](https://mintlify.wiki/rtk-ai/rtk/faq)、[JetBrains 基准](https://blog.jetbrains.com/ai/2026/07/rtk-claude-code-token-savings/) |
-| ③ | `headroom` | 上下文 | 压缩在线上下文,让 prompt 保持小 | [WanYanTianDe/dsh-headroom](https://github.com/WanYanTianDe/dsh-headroom) |
-| ④ | `caveman` | 输出 | 极简原话,出口更少 token | [skill-caveman](https://www.npmjs.com/package/skill-caveman)、[@nielpattin/pi-caveman](https://www.npmjs.com/package/@nielpattin/pi-caveman) |
+| # | Skill | 层 | 省什么 | 依赖引擎 |
+|---|-------|-------|--------|------|
+| ① | `handoff` | **会话** | 免去跨会话重读/重建上下文 | [context-auto-handoff](https://www.npmjs.com/package/context-auto-handoff) |
+| ② | `rtk` | **输入** | 进模型前剪掉重复/冗余 token | [RTK (Rust Token Killer)](https://mintlify.wiki/rtk-ai/rtk/faq) |
+| ③ | `headroom` | **上下文** | 压缩在线上下文,让 prompt 保持小 | [WanYanTianDe/dsh-headroom](https://github.com/WanYanTianDe/dsh-headroom) |
+| ④ | `caveman` | **输出** | 极简原话,出口更少 token | [skill-caveman](https://www.npmjs.com/package/skill-caveman) |
+
+每层是一个轻量 dsh skill(`skills/<layer>/SKILL.md`)。已有真实引擎的地方,skill 直接引用,不重造压缩——**策略和引擎都给你,白赚。**
+
+---
 
 ## 何时用哪层
 
-- **Handoff** —— 杠杆最高、最便宜:每次多会话项目养成写 `HANDOFF` 笔记的习惯,下一会话暖启动。
+- **Handoff** —— 杠杆最高、最便宜:会话结束时写 `HANDOFF.md`,下一会话暖启动。每个多会话项目都该用。
 - **RTK** —— 单次请求:准备贴大文件/日志/仓库列表前先剪。
-- **Headroom** —— 持续:长命 agent、上下文变肥时跑。
-- **Caveman** —— 每次回复:零成本、复利;只压措辞,不丢任务需要的内容。
+- **Headroom** —— 持续:长命 agent,趁窗口还没满就压,别等到悬崖边。
+- **Caveman** —— 每次回复:零成本、复利;只改*措辞*,从不丢*内容*。
 
-## 叠加关系
-四层不冲突、各洗一个阶段,全开只是习惯而非重配置:
+四层叠成一个习惯,不是重配置:
 
 ```text
-before: [上一会话原文] + [整仓库 dump] + [肥大上下文] + [啰嗦回复]
-after:  HANDOFF 笔记   → 剪过的 diff  → headroom 压缩  → 极简回复
+before: [上会话原文] + [整仓库 dump] + [肥大上下文] + [啰嗦回复]
+after:  HANDOFF 笔记   → 剪过的 diff   → headroom 压缩  → 极简回复
 ```
 
+---
+
 ## 安装
+
 ```sh
 dsh plugin --profile web add dsh-token-preset
 ```
-或把四个 skill 目录拷进 `~/.dsh/skills/`。
+
+或 clone 后把四个 skill 目录放进 `~/.dsh/skills/`:
+
+```sh
+git clone https://github.com/WODE25500/dsh-token-preset
+```
+
+每个 skill 也可单独调用:`handoff`、`rtk`、`headroom`、`caveman`。
+
+---
+
+## 校验
+
+```sh
+npm test   # 运行 scripts/check-skills.mjs,断言每个 bundle skill 的 frontmatter
+```
+
+---
 
 ## 许可
+
 MIT
