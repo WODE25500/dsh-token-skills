@@ -1,0 +1,18 @@
+# dsh-token-preset bundle patch layer.
+#
+# This bundle contributes four token-saving skills (skills/*/SKILL.md). The
+# skill-filesystem provider collects a bundle's skills/ dir into the bundled
+# skill root when the bundle is installed, so this patch only registers the
+# bundle as a profile layer. No runtime tools are injected.
+#
+# Usage in a profile's cordis.patch.yml / dsh.profile bundles list:
+#   bundles:
+#     - dsh-token-preset
+# or with a local checkout:
+#   - insert:
+#       - id: token-preset
+#         name: './src/index.js'
+
+- insert:
+    - id: token-preset
+      name: './src/index.js'
