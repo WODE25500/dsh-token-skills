@@ -2,6 +2,8 @@
 name: dsh-token-rtk
 description: Input redundancy pruning — drop repeated/redundant tokens before they reach the model. Trim verbose logs, duplicated warnings, whole-file pastes, and noise around the real signal so you pay for the signal you need, not the boilerplate around it. Token-saving layer ② (RTK = Rust Token Killer strategy).
 whenToUse: Before pasting a large file, log dump, repo listing, or build error that is mostly noise; when a prompt keeps growing because earlier large context is still attached; when you notice the model re-quoting or re-pasting content you already gave it.
+source: "Cut redundant input tokens before they reach the model. RTK = Rust Token Killer strategy."
+retire_when: "When the toolchain or model auto-deduplicates input, or the harness gains a built-in input-pruner."
 metadata:
   version: "1.0.0"
   author: "WODE25500"

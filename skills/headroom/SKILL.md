@@ -2,6 +2,8 @@
 name: dsh-token-headroom
 description: Context compaction / headroom — compress the live context so the prompt stays small without losing the state that matters. Backed by the dsh-headroom engine (compaction backend + CCR retrieve); this skill is the strategy layer and hands off to that plugin rather than re-implementing compression. Token-saving layer ③.
 whenToUse: When a long-lived session's context is getting fat and starts to hit limits; when you are about to run out of window or see quality drop on old context; when a compaction tool is available and you want to use it deliberately instead of a crude "trim everything."
+source: "Compress the live context so the prompt stays small. Backs onto the dsh-headroom engine."
+retire_when: "When dsh core auto-compacts context without a plugin, or a larger context window removes the pressure."
 metadata:
   version: "1.0.0"
   author: "WODE25500"

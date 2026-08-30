@@ -2,6 +2,8 @@
 name: dsh-token-caveman
 description: "Terse prose — compress the agent's own output so every reply costs fewer tokens. Caveman is a style discipline (short, direct, no throat-clearing), never substance loss: the content the task needs stays, the padding goes. Token-saving layer ④."
 whenToUse: "On every response, by default — it costs nothing and compounds across the session; specifically when a reply is long and the actual answer is short; when you catch yourself writing setup sentences (\"Sure! Let me... \" / \"Here's what I found:\") that add zero information."
+source: "Compress output tokens — a style discipline that compounds each reply. Backs onto skill-caveman."
+retire_when: "When terseness becomes a default model behavior, or output tokens are no longer billed."
 metadata:
   version: "1.0.0"
   author: "WODE25500"
