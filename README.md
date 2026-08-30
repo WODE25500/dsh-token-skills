@@ -34,6 +34,24 @@ Each layer is a thin dsh skill (`skills/<layer>/SKILL.md`). Where a real engine 
 
 ---
 
+## Standalone repos
+
+Each layer is also its own installable plugin, so you can add just the one you want:
+
+| Skill | Repo |
+|-------|------|
+| handoff | [WODE25500/dsh-token-handoff](https://github.com/WODE25500/dsh-token-handoff) |
+| rtk | [WODE25500/dsh-token-rtk](https://github.com/WODE25500/dsh-token-rtk) |
+| headroom | [WODE25500/dsh-token-headroom](https://github.com/WODE25500/dsh-token-headroom) |
+| caveman | [WODE25500/dsh-token-caveman](https://github.com/WODE25500/dsh-token-caveman) |
+
+```sh
+# install just one
+dsh plugin --profile web add dsh-token-handoff
+```
+
+---
+
 ## When to use which
 
 - **Handoff** — the highest-leverage, cheapest habit: write a `HANDOFF.md` note at session end so the next one starts warm. Use it on every multi-session project.

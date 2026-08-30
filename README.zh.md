@@ -34,6 +34,24 @@ flowchart LR
 
 ---
 
+## 独立仓库
+
+每层也是独立可装的插件,只按需加想要的:
+
+| Skill | 仓库 |
+|-------|------|
+| handoff | [WODE25500/dsh-token-handoff](https://github.com/WODE25500/dsh-token-handoff) |
+| rtk | [WODE25500/dsh-token-rtk](https://github.com/WODE25500/dsh-token-rtk) |
+| headroom | [WODE25500/dsh-token-headroom](https://github.com/WODE25500/dsh-token-headroom) |
+| caveman | [WODE25500/dsh-token-caveman](https://github.com/WODE25500/dsh-token-caveman) |
+
+```sh
+# 只装一个
+dsh plugin --profile web add dsh-token-handoff
+```
+
+---
+
 ## 何时用哪层
 
 - **Handoff** —— 杠杆最高、最便宜:会话结束时写 `HANDOFF.md`,下一会话暖启动。每个多会话项目都该用。
