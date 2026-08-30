@@ -1,0 +1,42 @@
+{
+  "name": "dsh-token-preset",
+  "version": "0.1.0",
+  "description": "Four-layer token-saving preset for DeepSeek Harness: handoff, rtk, headroom, caveman - each a bundled skill that cuts token cost without cutting model intelligence.",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "plugin",
+    "skill",
+    "token",
+    "token-saving",
+    "handoff",
+    "rtk",
+    "headroom",
+    "caveman"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  }
+}
