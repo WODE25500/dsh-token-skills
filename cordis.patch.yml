@@ -11,8 +11,8 @@
 # or with a local checkout:
 #   - insert:
 #       - id: token-skills
-#         name: './src/index.js'
+#         name: 'dsh-token-skills'
 
 - insert:
     - id: token-skills
-      name: './src/index.js'
+      name: 'dsh-token-skills'
